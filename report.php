@@ -60,13 +60,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "<h2>$loco_name Failure Report</h2>";
 
     // DB connection
-   $conn = pg_connect(getenv("DATABASE_URL"));
+    $dbUrl = getenv("DATABASE_URL") ?: ($_ENV["DATABASE_URL"] ?? null);
+
+    if (!$dbUrl) {
+        die("DATABASE_URL not found in environment");
+    }
+
+    $conn = pg_connect($dbUrl);
+
     if (!$conn) {
         die("Database connection failed");
     }
 
-
-    $query = "
+$query = "
 WITH alco_main AS (
     SELECT DISTINCT ala.item_id AS main_item_id
     FROM public.tb_assembly_loco_assoc ala

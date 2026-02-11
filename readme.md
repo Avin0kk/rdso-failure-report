@@ -3,7 +3,7 @@
 PHP + PostgreSQL based reporting system for locomotive failure analysis.
 
 ## Live Demo
-(To be added)
+Added
 
 ## Tech Stack
 - PHP
